@@ -1,1 +1,4 @@
-# An-lisis-de-Cabeceras_ProgramacionWeb
+# Analisis-de-Cabeceras_ProgramacionWeb
+## Prompt utilizado con IA
+
+Estoy realizando una practica de analisis de cabeceras con Wireshark en Windows 11. Te voy a copiar los campos que aparecen en los paquetes. Explicame en lenguaje sencillo que significa cada campo y relacionalo con el funcionamiento del protocolo, sin inventar datos. Para TCP, analiza los paquetes SYN, SYN-ACK y ACK del three-way handshake hacia 167.157.26.90:80, incluyendo puertos, numeros de secuencia y ACK, flags, tamano de cabecera, ventana y opciones MSS, Window Scale y SACK. Para DNS sobre UDP, explica Source Port, Destination Port, Length y Checksum, y la consulta/respuesta para www.google.com (Type A, Class IN, Transaction ID y Answers). Para RTP sobre UDP, analiza un paquete del archivo rtp_example.raw e interpreta puertos UDP, Version, Marker, Payload Type, Sequence Number, Timestamp y SSRC. Usa unicamente los valores que copie desde Wireshark y ayudame a redactar una explicacion breve en mis propias palabras.
