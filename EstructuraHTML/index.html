@@ -1,282 +1,740 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Tutorial introductorio de Python para estudiantes universitarios que comienzan a programar.">
-<title>Tutorial introductorio de Python</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial Básico de Python</title>
+
+    <style>
+        /* =========================
+           MOBILE FIRST / PORTRAIT
+           Estilos base para celulares en vertical.
+           El contenido comienza en una sola columna.
+        ========================= */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Trebuchet MS', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            background-color: #faf6ed;
+            color: #293746;
+        }
+
+        .contenedor {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        h1, h2, h3 {
+            line-height: 1.3;
+        }
+
+        p {
+            margin: 12px 0;
+        }
+
+        /* Header: título y presentación del tutorial. */
+        header {
+            padding: 30px 0;
+            background-color: #f5e9ce;
+            color: #263c49;
+            border-bottom: 1px solid #e5d6b9;
+        }
+
+        .etiqueta {
+            display: inline-block;
+            padding: 4px 10px;
+            background-color: #ffd343;
+            color: #24384b;
+            border-radius: 5px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        h1 {
+            margin: 16px 0 12px;
+            font-size: 36px;
+        }
+
+        header p {
+            margin-bottom: 0;
+            max-width: 600px;
+        }
+
+        /* Navegación: enlaces verticales en pantallas pequeñas. */
+        nav {
+            padding: 16px 0;
+            background-color: #ffffff;
+            border-bottom: 1px solid #dbe3ea;
+        }
+
+        nav ul {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        nav a {
+            display: block;
+            padding: 11px 14px;
+            background-color: #f5f0e5;
+            color: #24577d;
+            border-radius: 6px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #ffe39a;
+        }
+
+        /* Foco visible para navegar también con el teclado. */
+        a:focus-visible, pre:focus-visible {
+            outline: 3px solid #ad6500;
+            outline-offset: 3px;
+        }
+
+        /* Cuerpo: secciones separadas y fáciles de leer. */
+         .distribucion {
+            padding-top: 24px;
+            padding-bottom: 32px;
+        }
+
+        section {
+            margin-bottom: 22px;
+            padding: 20px 16px;
+            background-color: #ffffff;
+            border: 1px solid #e8dfce;
+            border-radius: 16px;
+            box-shadow: 0 5px 0 #eee7da;
+        }
+
+        h2 {
+            margin: 0 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e8dfce;
+            color: #285b82;
+            font-size: 23px;
+        }
+
+        h3 {
+            margin: 20px 0 10px;
+            font-size: 18px;
+        }
+
+        article {
+            min-width: 0;
+        }
+
+        article h3:first-child {
+            margin-top: 0;
+        }
+
+        article p:last-child {
+            margin-bottom: 0;
+        }
+
+        .grupo-bucles {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Editor: solo el código tiene scroll si la línea es larga. */
+        .editor {
+            margin: 16px 0;
+            border-radius: 7px;
+            background-color: #1e2935;
+        }
+
+        .editor-titulo {
+            margin: 0;
+            padding: 8px 14px;
+            background-color: #344554;
+            color: #f0f4f8;
+            border-radius: 7px 7px 0 0;
+            font-size: 12px;
+        }
+
+        pre {
+            max-width: 100%;
+            margin: 0;
+            padding: 16px;
+            overflow-x: auto;
+            border-radius: 0 0 7px 7px;
+            background-color: #1e2935;
+            color: #f5f7fa;
+            font-size: 14px;
+            line-height: 1.7;
+            tab-size: 4;
+        }
+
+        code {
+            font-family: Consolas, 'Courier New', monospace;
+        }
+
+        /* Consejo destacado con un amarillo suave. */
+        aside {
+            padding: 20px;
+            background-color: #fff8df;
+            border-left: 5px solid #e2b62e;
+            border-radius: 8px;
+        }
+
+        aside h2 {
+            margin-bottom: 10px;
+            padding: 0;
+            border: 0;
+            font-size: 21px;
+        }
+
+        aside p {
+            margin: 0;
+        }
+
+        /* Footer separado del contenido. */
+        footer {
+            padding: 24px 0;
+            background-color: #efe5d2;
+            border-top: 1px solid #dfd0b6;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Detalles sencillos para dar personalidad al tutorial. */
+        .cabecera {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .presentacion, .tarjeta-inicio {
+            min-width: 0;
+        }
+
+        h1 span {
+            color: #28638b;
+        }
+
+        .bienvenida {
+            font-size: 18px;
+        }
+
+        .boton-inicio {
+            display: inline-block;
+            margin-top: 22px;
+            padding: 11px 20px;
+            background-color: #2c6082;
+            color: #ffffff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .boton-inicio:hover {
+            background-color: #204860;
+        }
+
+        .tarjeta-inicio {
+            padding: 20px;
+            background-color: #fffdf7;
+            border: 1px solid #d8c8a8;
+            border-radius: 14px;
+            box-shadow: 6px 6px 0 #e6ce92;
+        }
+
+        .tarjeta-inicio .editor {
+            margin: 14px 0;
+        }
+
+        .tarjeta-inicio p {
+            margin: 0;
+        }
+
+        .nota-inicio {
+            color: #615b4e;
+            font-size: 14px;
+        }
+
+        .numero {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 6px 10px;
+            border-radius: 8px;
+            background-color: #ffe39a;
+            color: #66501a;
+            font-size: 16px;
+            vertical-align: middle;
+        }
+
+        .guia {
+            margin: 0 0 22px;
+            color: #6b6456;
+        }
+
+        .puntos {
+            color: #f6cc67;
+            margin-right: 10px;
+            letter-spacing: 3px;
+        }
+
+        .cadena { color: #f4d47e; }
+        .palabra { color: #9ac8ed; }
+
+        .grupo-bucles article {
+            padding: 16px;
+            border: 1px solid #e8dfce;
+            border-radius: 10px;
+            background-color: #fcfaf5;
+        }
+
+        .frase-footer {
+            margin-bottom: 8px;
+            color: #615b4e;
+            font-size: 16px;
+        }
+
+        /* Estructura del dibujo: en celular se apila primero el índice.
+           En pantallas amplias, aside y main comparten una fila. */
+        .distribucion {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .contenido {
+            min-width: 0;
+        }
+
+        .indice-lateral {
+            padding: 20px 16px;
+            background-color: #fffdf7;
+            border: 1px solid #e1d4ba;
+            border-top: 4px solid #e2b62e;
+            border-radius: 12px;
+        }
+
+        .indice-lateral h2 {
+            margin: 6px 0 14px;
+            font-size: 24px;
+        }
+
+        .indice-etiqueta {
+            color: #716447;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .indice-lateral nav {
+            padding: 0;
+            border: 0;
+            background-color: transparent;
+        }
+
+        .indice-lateral nav a {
+            padding: 12px 10px;
+            font-size: 15px;
+        }
+
+        .indice-lateral nav a span {
+            margin-right: 6px;
+            color: #77602e;
+            font-size: 12px;
+        }
+
+        .indice-lateral .nota-indice {
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px solid #e8dfce;
+            color: #716447;
+            font-size: 13px;
+        }
+
+        /* =========================
+           MOBILE LANDSCAPE
+           Reduce espacios y aprovecha el ancho horizontal.
+        ========================= */
+        @media screen and (orientation: landscape) and (max-width: 900px) {
+            header {
+                padding: 18px 0;
+            }
+
+            h1 {
+                margin-top: 10px;
+                font-size: 28px;
+            }
+
+
+
+
+             .distribucion {
+                padding-top: 18px;
+            }
+        }
+
+        /* =========================
+           TABLET
+           Desde 768px: índice a la izquierda y contenido a la derecha.
+        ========================= */
+        @media screen and (min-width: 768px) {
+            .distribucion {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+
+            .indice-lateral {
+                width: 205px;
+                flex-shrink: 0;
+            }
+
+            .contenido {
+                flex: 1;
+            }
+
+            .contenedor {
+                padding-left: 28px;
+                padding-right: 28px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+
+
+
+            section {
+                padding: 28px;
+            }
+
+            h2 {
+                font-size: 26px;
+            }
+        }
+
+        /* =========================
+           LAPTOP
+           El contenedor mantiene su máximo de 1100px.
+           El índice conserva su ancho y el tutorial utiliza el espacio restante.
+        ========================= */
+        @media screen and (min-width: 1024px) {
+            .distribucion { gap: 30px; }
+            .indice-lateral { width: 230px; }
+
+            .cabecera {
+                flex-direction: row;
+                align-items: center;
+                gap: 40px;
+            }
+
+            .presentacion { flex: 1.3; }
+            .tarjeta-inicio { flex: 1; }
+
+            header {
+                padding: 40px 0;
+            }
+
+            h1 {
+                font-size: 46px;
+            }
+
+             .distribucion {
+                padding-top: 32px;
+                padding-bottom: 40px;
+            }
+
+            section {
+                margin-bottom: 28px;
+                padding: 32px;
+            }
+
+
+            pre {
+                font-size: 15px;
+            }
+        }
+
+        /* =========================
+           PRINT
+           Tutorial legible sobre papel, sin navegación.
+        ========================= */
+        @media print {
+            @page {
+                margin: 18mm;
+            }
+
+            * {
+                background-color: #ffffff !important;
+                color: #000000 !important;
+                box-shadow: none !important;
+            }
+
+            body {
+                font-size: 11pt;
+                line-height: 1.5;
+            }
+
+            nav, .indice-lateral, .etiqueta, .editor-titulo, .boton-inicio,
+            .tarjeta-inicio, .guia, .frase-footer {
+                display: none;
+            }
+
+            .contenedor {
+                max-width: none;
+                padding: 0;
+            }
+
+            header {
+                padding: 0 0 12pt;
+                border-bottom: 1px solid #999999;
+            }
+
+            h1 {
+                font-size: 24pt;
+            }
+
+            h2 {
+                font-size: 17pt;
+                border-bottom: 1px solid #bbbbbb;
+            }
+
+            h3 {
+                font-size: 13pt;
+            }
+
+            h2, h3 {
+                break-after: avoid;
+            }
+
+             .distribucion {
+                padding: 16pt 0;
+            }
+
+            section {
+                padding: 0;
+                margin-bottom: 20pt;
+                border: 0;
+            }
+
+            .cabecera, .distribucion { display: block; }
+
+            .grupo-bucles {
+                display: block;
+            }
+
+            .grupo-bucles article + article {
+                margin-top: 16pt;
+            }
+
+            .editor {
+                break-inside: avoid;
+            }
+
+            pre {
+                padding: 10pt;
+                border: 1px solid #aaaaaa;
+                border-radius: 0;
+                font-size: 9pt;
+                overflow: visible;
+            }
+
+            pre, pre code {
+                white-space: pre-wrap;
+                overflow-wrap: anywhere;
+            }
+
+            aside {
+                padding: 12pt;
+                border: 1px solid #aaaaaa;
+                break-inside: avoid;
+            }
+
+            footer {
+                padding: 12pt 0 0;
+                border-top: 1px solid #999999;
+                font-size: 10pt;
+            }
+        }
+    </style>
 </head>
+
 <body>
-<header>
-<h1>Tutorial introductorio de Python</h1>
-<p>Aprende a programar desde cero con explicaciones y ejemplos pensados para estudiantes universitarios. No necesitas experiencia previa. Lee los temas en orden y prueba cada ejemplo por separado.</p>
-<nav aria-label="Índice del tutorial">
-<h2>Índice</h2>
-<ol>
-<li><a href="#tema-1">1. Qué es Python y para qué se utiliza</a></li>
-<li><a href="#tema-2">2. Cómo instalar Python</a></li>
-<li><a href="#tema-3">3. Primer programa con print(&quot;Hola mundo&quot;)</a></li>
-<li><a href="#tema-4">4. Variables</a></li>
-<li><a href="#tema-5">5. Tipos de datos: int, float, str y bool</a></li>
-<li><a href="#tema-6">6. Operadores aritméticos, relacionales y lógicos</a></li>
-<li><a href="#tema-7">7. Entrada de datos utilizando input()</a></li>
-<li><a href="#tema-8">8. Condicionales if, elif y else</a></li>
-<li><a href="#tema-9">9. Bucles for y while</a></li>
-<li><a href="#tema-10">10. Listas</a></li>
-<li><a href="#tema-11">11. Funciones</a></li>
-<li><a href="#tema-12">12. Ejercicio final: registro de notas</a></li>
-<li><a href="#tema-13">13. Conclusión</a></li>
-</ol>
-</nav>
-</header>
-<main>
-<article aria-label="Tutorial completo de Python">
-<section id="tema-1" aria-labelledby="titulo-1">
-<h2 id="titulo-1">1. Qué es Python y para qué se utiliza</h2>
-<p>Python es un lenguaje de programación: permite escribir instrucciones que una computadora puede ejecutar. Su sintaxis es legible y facilita aprender conceptos básicos. Se utiliza en automatización, análisis de datos, inteligencia artificial, aplicaciones web y proyectos científicos.</p>
-<p>Un programa puede realizar un cálculo y mostrar su resultado. <code>print()</code> muestra información en pantalla. Las líneas que comienzan con <code>#</code> son comentarios: explican el código y no se ejecutan.</p>
-<pre><code># Calcular el total de una compra
-print(3 * 15)  # Muestra 45</code></pre>
-</section>
-<section id="tema-2" aria-labelledby="titulo-2">
-<h2 id="titulo-2">2. Cómo instalar Python</h2>
-<p>Utiliza una versión estable de Python 3. Descárgala desde el sitio oficial: https://www.python.org/downloads/. Evita versiones de prueba para comenzar.</p>
-<h3>En Windows</h3>
-<ol>
-<li>Descarga el administrador de instalación de Python (Python Install Manager) desde el sitio oficial e instálalo.</li>
-<li>Abre una terminal nueva, como PowerShell, y ejecuta <code>py install 3</code> para instalar una versión estable de Python 3.</li>
-<li>Comprueba la instalación con <code>py --version</code>.</li>
-<li>Escribe <code>py</code> para abrir el intérprete interactivo, donde puedes ejecutar instrucciones de Python.</li>
-</ol>
-<h3>En macOS</h3>
-<ol>
-<li>Descarga el instalador de Python 3 para macOS desde el sitio oficial.</li>
-<li>Abre el archivo <code>.pkg</code> y sigue las indicaciones del instalador.</li>
-<li>Abre Terminal y ejecuta <code>python3 --version</code> para comprobar la instalación.</li>
-<li>Escribe <code>python3</code> para abrir el intérprete interactivo.</li>
-</ol>
-<h3>En Linux</h3>
-<p>Comprueba primero si Python ya está instalado ejecutando <code>python3 --version</code> en la terminal. Si no lo está, utiliza el gestor de paquetes de tu distribución. Por ejemplo, en Ubuntu o Debian puedes ejecutar los siguientes comandos de terminal:</p>
-<pre><code>sudo apt update
-sudo apt install python3</code></pre>
-<p>Después, escribe <code>python3</code> para abrir el intérprete. En cualquier sistema, verás el indicador <code>&gt;&gt;&gt;</code>: señala que Python espera una instrucción. No copies ese indicador al escribir los ejemplos.</p>
-<p>Prueba este código dentro del intérprete:</p>
-<pre><code>print(&quot;Python está funcionando&quot;)</code></pre>
-<p>Para salir del intérprete, escribe <code>exit()</code>. Los comandos de instalación se ejecutan en la terminal, no dentro de Python. Puedes consultar las instrucciones oficiales para Windows en https://docs.python.org/3/using/windows.html.</p>
-</section>
-<section id="tema-3" aria-labelledby="titulo-3">
-<h2 id="titulo-3">3. Primer programa con print(&quot;Hola mundo&quot;)</h2>
-<p>Un programa es una secuencia de instrucciones. La función <code>print()</code> muestra un mensaje; las comillas indican que el contenido es texto.</p>
-<pre><code>print(&quot;Hola mundo&quot;)</code></pre>
-<p>La salida será <code>Hola mundo</code>. Para guardar un programa, escribe el código en un editor de texto y guárdalo, por ejemplo, como <code>hola.py</code>. La extensión <code>.py</code> identifica un archivo de Python. Este archivo de práctica lo creas tú; no forma parte de los tres archivos del proyecto.</p>
-<p>Abre la terminal en la carpeta donde guardaste el archivo y ejecuta <code>py hola.py</code> en Windows o <code>python3 hola.py</code> en macOS y Linux. También puedes probar instrucciones individuales directamente en el intérprete.</p>
-</section>
-<section id="tema-4" aria-labelledby="titulo-4">
-<h2 id="titulo-4">4. Variables</h2>
-<p>Una variable es un nombre que hace referencia a un valor. El operador <code>=</code> asigna un valor a ese nombre. No necesitas declarar el tipo previamente y puedes cambiar el valor durante la ejecución.</p>
-<pre><code>nombre = &quot;Ana&quot;
-edad = 18
-print(nombre)  # Ana
-print(edad)    # 18
+    <!-- HEADER -->
+    <header>
+        <div class="contenedor cabecera">
+            <div class="presentacion">
+                <span class="etiqueta">PASO A PASO · DESDE CERO</span>
+                <h1>Tutorial Básico de <span>Python</span></h1>
+                <p class="bienvenida">Toda gran idea empieza con unas pocas líneas.</p>
+                <p>Aprende los conceptos fundamentales de Python.</p>
+                <a class="boton-inicio" href="#introduccion">Vamos a empezar →</a>
+            </div>
+            <div class="tarjeta-inicio">
+                <strong>Tu primera línea de código</strong>
+                <div class="editor">
+                    <p class="editor-titulo"><span class="puntos" aria-hidden="true">● ● ●</span>hola.py</p>
+                    <pre tabindex="0" aria-label="Primer saludo en Python"><code>print(<span class="cadena">"Hola mundo"</span>)</code></pre>
+                </div>
+                <p class="nota-inicio">No necesitas saberlo todo para empezar. Prueba, cambia algo y vuelve a intentarlo.</p>
+            </div>
+        </div>
+    </header>
 
-edad = edad + 1
-print(edad)    # 19</code></pre>
-<p>Utiliza nombres descriptivos, como <code>nota_final</code>. No pueden comenzar con un número ni contener espacios. Python distingue mayúsculas de minúsculas: <code>edad</code> y <code>Edad</code> son nombres diferentes. <code>=</code> asigna; no sirve para comparar igualdad.</p>
-</section>
-<section id="tema-5" aria-labelledby="titulo-5">
-<h2 id="titulo-5">5. Tipos de datos: int, float, str y bool</h2>
-<p>El tipo de un dato determina qué clase de valor representa y qué operaciones permite.</p>
-<ul>
-<li><code>int</code>: números enteros, como <code>20</code> o <code>-3</code>.</li>
-<li><code>float</code>: números con parte decimal, como <code>8.5</code>. En el código se usa punto decimal.</li>
-<li><code>str</code>: texto entre comillas, como <code>&quot;Universidad&quot;</code>.</li>
-<li><code>bool</code>: valores lógicos, <code>True</code> o <code>False</code>, escritos con mayúscula inicial.</li>
-</ul>
-<pre><code>cantidad = 20          # int
-promedio = 8.5         # float
-materia = &quot;Python&quot;    # str
-esta_inscrito = True  # bool
+    <!-- CUERPO: índice lateral y contenido principal. -->
+    <div class="contenedor distribucion">
+        <aside class="indice-lateral" aria-labelledby="titulo-indice">
+            <p class="indice-etiqueta">PASO A PASO</p>
+            <h2 id="titulo-indice">Índice</h2>
+            <nav aria-label="Temas del tutorial">
+                <ul>
+                    <li><a href="#introduccion"><span>01</span> Introducción</a></li>
+                    <li><a href="#variables"><span>02</span> Variables</a></li>
+                    <li><a href="#condicionales"><span>03</span> Condicionales</a></li>
+                    <li><a href="#bucles"><span>04</span> Bucles</a></li>
+                    <li><a href="#funciones"><span>05</span> Funciones</a></li>
+                </ul>
+            </nav>
+            <p class="nota-indice">Un tema a la vez.<br>Lee, prueba y sigue aprendiendo.</p>
+        </aside>
 
-print(type(cantidad))       # &lt;class &#x27;int&#x27;&gt;
-print(type(promedio))       # &lt;class &#x27;float&#x27;&gt;
-print(type(materia))        # &lt;class &#x27;str&#x27;&gt;
-print(type(esta_inscrito))  # &lt;class &#x27;bool&#x27;&gt;</code></pre>
-<p>La función <code>type()</code> permite consultar el tipo de un valor. El número <code>20</code> y el texto <code>&quot;20&quot;</code> son distintos: el primero permite cálculos directamente; el segundo representa caracteres.</p>
-</section>
-<section id="tema-6" aria-labelledby="titulo-6">
-<h2 id="titulo-6">6. Operadores aritméticos, relacionales y lógicos</h2>
-<p>Los operadores permiten calcular valores y construir condiciones.</p>
-<h3>Operadores aritméticos</h3>
-<p>Se utilizan para realizar cálculos: <code>+</code> suma, <code>-</code> resta, <code>*</code> multiplicación, <code>/</code> división, <code>//</code> división entera, <code>%</code> resto y <code>**</code> potencia. La división entera redondea el cociente hacia abajo; por ejemplo, <code>-7 // 2</code> resulta en <code>-4</code>.</p>
-<pre><code>a = 7
-b = 2
-print(a + b)   # 9
-print(a - b)   # 5
-print(a * b)   # 14
-print(a / b)   # 3.5
-print(a // b)  # 3
-print(a % b)   # 1
-print(a ** b)  # 49
-print((a + b) * 2)  # 18</code></pre>
-<p>Los paréntesis ayudan a indicar el orden de las operaciones. No es posible dividir entre cero.</p>
-<h3>Operadores relacionales</h3>
-<p>Comparan valores y producen un resultado booleano: <code>==</code> igual, <code>!=</code> distinto, <code>&gt;</code> mayor, <code>&lt;</code> menor, <code>&gt;=</code> mayor o igual y <code>&lt;=</code> menor o igual.</p>
-<pre><code>nota = 75
-print(nota == 75)  # True
-print(nota != 75)  # False
-print(nota &gt; 80)   # False
-print(nota &lt; 80)   # True
-print(nota &gt;= 60)  # True
-print(nota &lt;= 100) # True</code></pre>
-<h3>Operadores lógicos</h3>
-<p><code>and</code> exige que ambas condiciones sean verdaderas. <code>or</code> exige que al menos una sea verdadera. <code>not</code> invierte el valor lógico de una condición.</p>
-<pre><code>edad = 19
-tiene_credencial = True
-print(edad &gt;= 18 and tiene_credencial)  # True
-print(edad &lt; 18 or tiene_credencial)    # True
-print(not tiene_credencial)            # False</code></pre>
-</section>
-<section id="tema-7" aria-labelledby="titulo-7">
-<h2 id="titulo-7">7. Entrada de datos utilizando input()</h2>
-<p><code>input()</code> muestra una pregunta, espera a que escribas una respuesta y la devuelve como texto. Para hacer cálculos, convierte ese texto con <code>int()</code> o <code>float()</code>.</p>
-<pre><code>nombre = input(&quot;¿Cómo te llamas? &quot;)
-edad = int(input(&quot;¿Cuántos años tienes? &quot;))
-altura = float(input(&quot;¿Cuánto mides en metros? Ejemplo: 1.70: &quot;))
+    <!-- CUERPO DE LA PÁGINA -->
+    <main class="contenido">
+        <p class="guia">Tu ruta de aprendizaje · 5 temas para dar tus primeros pasos</p>
+        <section id="introduccion">
+            <h2><span class="numero" aria-hidden="true">01</span>Introducción a Python</h2>
+            <article>
+                <h3>¿Qué es Python?</h3>
+                <p>
+                    Python es un lenguaje de programación de alto nivel,
+                    conocido por tener una sintaxis sencilla y fácil de aprender.
+                </p>
+                <h3>Primer programa</h3>
+                <div class="editor">
+                    <p class="editor-titulo"><span class="puntos" aria-hidden="true">● ● ●</span>Python · Primer programa</p>
+                    <pre tabindex="0" aria-label="Código del primer programa"><code>print(<span class="cadena">"Hola mundo"</span>)</code></pre>
+                </div>
+            </article>
+        </section>
 
-print(&quot;Hola,&quot;, nombre)
-print(&quot;El próximo año tendrás&quot;, edad + 1, &quot;años&quot;)
-print(&quot;Tu altura es&quot;, altura, &quot;metros&quot;)</code></pre>
-<p>Si escribes <code>Ana</code>, <code>18</code> y <code>1.70</code>, el programa te saluda e indica que tendrás 19 años. Introduce un entero para la edad y usa punto para los decimales. Si intentas convertir texto no numérico, como <code>&quot;dieciocho&quot;</code>, obtendrás un error <code>ValueError</code>. Por ahora, los ejemplos suponen entradas numéricas válidas.</p>
-</section>
-<section id="tema-8" aria-labelledby="titulo-8">
-<h2 id="titulo-8">8. Condicionales if, elif y else</h2>
-<p>Los condicionales permiten elegir qué instrucciones ejecutar. <code>if</code> evalúa la primera condición; <code>elif</code> comprueba otra si la anterior fue falsa; <code>else</code> se ejecuta cuando ninguna condición anterior se cumple.</p>
-<p>En este ejemplo didáctico, las notas van de 0 a 100 y se aprueba desde 60. Es una regla del ejercicio, no una norma de tu universidad.</p>
-<pre><code>nota = 85
+        <section id="variables">
+            <h2><span class="numero" aria-hidden="true">02</span>Variables</h2>
+            <article>
+                <p>
+                    Las variables permiten almacenar información que podemos
+                    utilizar durante la ejecución de un programa.
+                </p>
+                <div class="editor">
+                    <p class="editor-titulo"><span class="puntos" aria-hidden="true">● ● ●</span>Python · Variables</p>
+                    <pre tabindex="0" aria-label="Ejemplo de variables"><code>nombre = <span class="cadena">"Marco"</span>
+edad = 20
+altura = 1.75</code></pre>
+                </div>
+                <p>
+                    En este ejemplo se almacenan un nombre, una edad y una altura.
+                </p>
+            </article>
+        </section>
 
-if nota &gt;= 90:
-    print(&quot;Excelente&quot;)
-elif nota &gt;= 60:
-    print(&quot;Aprobado&quot;)
-else:
-    print(&quot;Necesitas reforzar el tema&quot;)</code></pre>
-<p>La salida es <code>Aprobado</code>. Python evalúa las condiciones en orden y ejecuta solamente la primera rama que corresponde. Cada encabezado termina con <code>:</code> y su bloque se escribe con sangría de cuatro espacios. Esa sangría forma parte de la sintaxis.</p>
-</section>
-<section id="tema-9" aria-labelledby="titulo-9">
-<h2 id="titulo-9">9. Bucles for y while</h2>
-<p>Un bucle repite instrucciones. Usa <code>for</code> para recorrer elementos o una secuencia de números. Usa <code>while</code> para repetir mientras una condición sea verdadera.</p>
-<h3>Bucle for</h3>
-<p><code>range(1, 4)</code> produce los números 1, 2 y 3. El límite final, 4, no se incluye.</p>
-<pre><code>for numero in range(1, 4):
-    print(&quot;Repetición&quot;, numero)</code></pre>
-<p>El programa imprime tres líneas, una para cada número. <code>range(3)</code> también produce tres valores, pero empieza en cero: 0, 1 y 2.</p>
-<h3>Bucle while</h3>
-<pre><code>contador = 1
+        <section id="condicionales">
+            <h2><span class="numero" aria-hidden="true">03</span>Condicionales</h2>
+            <article>
+                <p>
+                    Los condicionales permiten ejecutar diferentes instrucciones
+                    dependiendo de una condición.
+                </p>
+                <div class="editor">
+                    <p class="editor-titulo"><span class="puntos" aria-hidden="true">● ● ●</span>Python · Condicionales</p>
+                    <pre tabindex="0" aria-label="Ejemplo de condicionales"><code>edad = 18
 
-while contador &lt;= 3:
-    print(&quot;Contador:&quot;, contador)
-    contador = contador + 1</code></pre>
-<p>Este ejemplo muestra los valores 1, 2 y 3. La actualización del contador permite que la condición llegue a ser falsa. Si olvidas actualizarlo, el bucle puede ejecutarse indefinidamente. Ambos tipos de bucle requieren <code>:</code> y sangría.</p>
-</section>
-<section id="tema-10" aria-labelledby="titulo-10">
-<h2 id="titulo-10">10. Listas</h2>
-<p>Una lista guarda varios elementos en un orden y permite modificarlos. Se escribe entre corchetes, con sus elementos separados por comas. Las posiciones, llamadas índices, comienzan en cero.</p>
-<pre><code>notas = [70, 85, 90]
-print(notas[0])  # 70: primer elemento
+<span class="palabra">if</span> edad &gt;= 18:
+    print(<span class="cadena">"Es mayor de edad"</span>)
+<span class="palabra">else</span>:
+    print(<span class="cadena">"Es menor de edad"</span>)</code></pre>
+                </div>
+            </article>
+        </section>
 
-notas[1] = 88    # Modificar el segundo elemento
-notas.append(95) # Agregar un elemento al final
-print(len(notas))  # 4: cantidad de elementos
+        <section id="bucles">
+            <h2><span class="numero" aria-hidden="true">04</span>Bucles</h2>
+            <div class="grupo-bucles">
+                <article>
+                    <h3>Bucle for</h3>
+                    <p>
+                        El bucle <strong>for</strong> permite repetir una acción
+                        varias veces.
+                    </p>
+                    <div class="editor">
+                        <p class="editor-titulo"><span class="puntos" aria-hidden="true">● ● ●</span>Python · Bucle for</p>
+                        <pre tabindex="0" aria-label="Ejemplo de bucle for"><code><span class="palabra">for</span> i <span class="palabra">in</span> range(5):
+    print(i)</code></pre>
+                    </div>
+                </article>
 
-for nota in notas:
-    print(nota)</code></pre>
-<p>Después de los cambios, la lista es <code>[70, 88, 90, 95]</code>. <code>append()</code> agrega un elemento y <code>len()</code> devuelve la cantidad de elementos. <code>[]</code> representa una lista vacía. Acceder a una posición inexistente produce un error <code>IndexError</code>.</p>
-</section>
-<section id="tema-11" aria-labelledby="titulo-11">
-<h2 id="titulo-11">11. Funciones</h2>
-<p>Una función reúne instrucciones que realizan una tarea y pueden reutilizarse. Se define con <code>def</code>, seguida de su nombre, paréntesis y <code>:</code>. Los parámetros son los nombres que reciben los datos de entrada. <code>return</code> devuelve un resultado y termina la ejecución de la función.</p>
-<pre><code>def calcular_promedio(nota1, nota2):
-    promedio = (nota1 + nota2) / 2
-    return promedio
+                <article>
+                    <h3>Bucle while</h3>
+                    <p>
+                        El bucle <strong>while</strong> repite instrucciones mientras
+                        una condición sea verdadera.
+                    </p>
+                    <div class="editor">
+                        <p class="editor-titulo"><span class="puntos" aria-hidden="true">● ● ●</span>Python · Bucle while</p>
+                        <pre tabindex="0" aria-label="Ejemplo de bucle while"><code>contador = 0
 
-resultado = calcular_promedio(80, 90)
-print(&quot;Promedio:&quot;, resultado)  # Promedio: 85.0</code></pre>
-<p>Aquí, <code>nota1</code> y <code>nota2</code> son parámetros; <code>80</code> y <code>90</code> son los argumentos usados al llamar a la función. Definir una función no ejecuta su cuerpo: debes llamarla. <code>print()</code> muestra información, mientras que <code>return</code> entrega un valor que puedes guardar o utilizar en otro cálculo.</p>
-</section>
-<section id="tema-12" aria-labelledby="titulo-12">
-<h2 id="titulo-12">12. Ejercicio final: registro de notas</h2>
-<p>Crea un programa que pida el nombre de un estudiante y tres notas, guarde las notas en una lista, calcule el promedio mediante una función y muestre el resultado. Utiliza notas de 0 a 100. Para este ejercicio, un promedio de al menos 90 es excelente; desde 60 es aprobado; por debajo de 60 requiere refuerzo.</p>
-<ol>
-<li>Pide el nombre con <code>input()</code>.</li>
-<li>Usa un <code>for</code> para solicitar tres notas y conviértelas con <code>float()</code>.</li>
-<li>Usa un <code>while</code> para volver a pedir cualquier nota fuera del intervalo de 0 a 100.</li>
-<li>Guarda cada nota válida en una lista con <code>append()</code>.</li>
-<li>Define una función que recorra la lista, acumule las notas y devuelva el promedio.</li>
-<li>Muestra el nombre, el promedio y una clasificación con <code>if</code>, <code>elif</code> y <code>else</code>.</li>
-</ol>
-<p>Intenta resolverlo antes de leer la solución. Introduce valores numéricos finitos con punto decimal cuando sea necesario. El ejemplo valida el intervalo, pero no maneja entradas de texto no numéricas.</p>
-<h3>Solución orientativa</h3>
-<pre><code>def calcular_promedio(notas):
-    total = 0
-    for nota in notas:
-        total = total + nota
-    return total / len(notas)
+<span class="palabra">while</span> contador &lt; 5:
+    print(contador)
+    contador += 1</code></pre>
+                    </div>
+                </article>
+            </div>
+        </section>
 
-nombre = input(&quot;Nombre del estudiante: &quot;)
-notas = []
+        <section id="funciones">
+            <h2><span class="numero" aria-hidden="true">05</span>Funciones</h2>
+            <article>
+                <p>
+                    Una función es un bloque de código que podemos reutilizar
+                    para realizar una determinada tarea.
+                </p>
+                <div class="editor">
+                    <p class="editor-titulo"><span class="puntos" aria-hidden="true">● ● ●</span>Python · Funciones</p>
+                    <pre tabindex="0" aria-label="Ejemplo de una función"><code><span class="palabra">def</span> saludar(nombre):
+    print(<span class="cadena">"Hola"</span>, nombre)
 
-for numero in range(1, 4):
-    print(&quot;Nota&quot;, numero)
-    nota = float(input(&quot;Escribe un valor entre 0 y 100: &quot;))
+saludar(<span class="cadena">"Marco"</span>)</code></pre>
+                </div>
+            </article>
+        </section>
 
-    while nota &lt; 0 or nota &gt; 100:
-        print(&quot;La nota debe estar entre 0 y 100.&quot;)
-        nota = float(input(&quot;Vuelve a ingresar la nota: &quot;))
+        <aside aria-labelledby="titulo-consejo">
+            <h2 id="titulo-consejo">Un consejo antes de seguir</h2>
+            <p>
+                La mejor forma de aprender Python es practicar escribiendo
+                pequeños programas y modificando los ejemplos.
+            </p>
+        </aside>
+    </main>
+    </div> <!-- Fin de la distribución del cuerpo -->
 
-    notas.append(nota)
-
-promedio = calcular_promedio(notas)
-
-print(&quot;Estudiante:&quot;, nombre)
-print(&quot;Notas registradas:&quot;, notas)
-print(&quot;Promedio:&quot;, promedio)
-
-if promedio &gt;= 90:
-    print(&quot;Resultado: excelente&quot;)
-elif promedio &gt;= 60:
-    print(&quot;Resultado: aprobado&quot;)
-else:
-    print(&quot;Resultado: necesitas reforzar el tema&quot;)</code></pre>
-<p>La función recibe una lista que debe contener al menos una nota. En este programa, el <code>for</code> garantiza tres notas antes de llamarla, por lo que no se divide entre cero.</p>
-<h3>Comprobación manual</h3>
-<ul>
-<li>Con el nombre Ana y las notas 80, 90 y 100, el promedio es 90.0 y el resultado es excelente.</li>
-<li>Con las notas 50, 60 y 70, el promedio es 60.0 y el resultado es aprobado.</li>
-<li>Con las notas 40, 50 y 60, el promedio es 50.0 y el resultado indica que necesitas reforzar el tema.</li>
-<li>Si escribes 120 o -5 como nota, el programa vuelve a pedirla antes de guardarla.</li>
-</ul>
-<p>Como práctica adicional, cambia el programa para registrar cinco notas. Ajusta el límite de <code>range()</code> y comprueba que la función sigue calculando el promedio correctamente.</p>
-</section>
-<section id="tema-13" aria-labelledby="titulo-13">
-<h2 id="titulo-13">13. Conclusión</h2>
-<p>Ya conoces los elementos básicos para escribir programas: mostrar mensajes, almacenar datos, recibir entradas, realizar operaciones, tomar decisiones, repetir tareas, organizar listas y reutilizar instrucciones mediante funciones. Aprender a programar requiere práctica: modifica los ejemplos, predice sus resultados y compara tus predicciones con la ejecución.</p>
-<p>Este último ejemplo resume cómo una función puede recorrer una lista y aplicar una condición:</p>
-<pre><code>def mostrar_aprobados(notas):
-    for nota in notas:
-        if nota &gt;= 60:
-            print(&quot;Nota aprobada:&quot;, nota)
-
-mostrar_aprobados([45, 60, 85])</code></pre>
-<p>La salida muestra las notas 60 y 85. Como siguiente paso, practica con pequeños problemas y aprende a manejar errores de entrada antes de construir programas más grandes.</p>
-</section>
-</article>
-<aside aria-label="Documentación de consulta">
-<h2>Documentación de consulta</h2>
-<p>Amplía tu aprendizaje con el <a href="https://docs.python.org/es/3/tutorial/">tutorial oficial de Python en español</a>.</p>
-</aside>
-</main>
-<footer>
-<p>Proyecto educativo: tutorial-python. Material introductorio para estudiantes universitarios.</p>
-</footer>
+    <!-- FOOTER -->
+    <footer>
+        <div class="contenedor">
+            <p class="frase-footer">Aprender también es probar, equivocarse y volver a intentar.</p>
+            <p>Tutorial básico de Python - 2026</p>
+        </div>
+    </footer>
 </body>
 </html>
